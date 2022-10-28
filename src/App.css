@@ -9,7 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 5s linear;
   }
 }
 
@@ -24,15 +24,75 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.App-input {
+  font-size: 16px;
+  width: 300px;
+  border-radius: 6px;
+  padding: 6px;
+  margin-right: 10px;
+}
+
+.App-button {
+  font-size: 16px;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.BotChooser-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  padding: 40px;
+}
+
+.BotCard-container {
+  width: 1000px;
+  height: 300px;
+  background-color: #5d6e91;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.BotCard-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+}
+
+.BotCard-info-row {
+  margin: 0px;
+}
+
+.BotCard-image {
+  height: 150px;
+  pointer-events: none;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 @keyframes App-logo-spin {
-  from {
+  0% {
     transform: rotate(0deg);
   }
-  to {
-    transform: rotate(360deg);
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }
