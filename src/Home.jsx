@@ -8,12 +8,14 @@ const Home = () => {
   const [sessionId, setSessionId] = useState('');
   const [otp, setOtp] = useState('');
   const [token, setToken] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     localStorage.removeItem('token');
   }, [])
 
   const generateOtp = async () => {
+    setLoading(true);
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -22,9 +24,11 @@ const Home = () => {
     const response = await fetch('https://w40cmw1nyl.execute-api.us-east-1.amazonaws.com/otp/generate', requestOptions);
     const data = await response.json();
     setSessionId(data.sessionId);
+    setLoading(false);
   }
   
   const validateOtp = async () => {
+    setLoading(true);
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,6 +38,7 @@ const Home = () => {
     const data = await response.json();
     setToken(data.token);
     localStorage.setItem('token', data.token);
+    setLoading(false);
   }
 
   return (
@@ -49,8 +54,19 @@ const Home = () => {
             <p>
               Enter your email address to receive a login code
             </p>
-            <input className="App-input" value={email} onChange={({target}) => setEmail(target.value)}/>
-            <button className="App-button" onClick={() => generateOtp(email)}>submit</button>
+            <input 
+              className="App-input"
+              value={email}
+              onChange={({target}) => setEmail(target.value)} 
+              disabled={loading}
+            />
+            <button 
+              className="App-button"
+              onClick={() => generateOtp(email)}
+              disabled={loading}
+            >
+              submit
+            </button>
           </div>
         )}
         {sessionId && (
@@ -58,8 +74,19 @@ const Home = () => {
             <p>
               {`Enter login code for ${email}`}
             </p>
-            <input className="App-input" value={otp} onChange={({target}) => setOtp(target.value)}/>
-            <button className="App-button" onClick={() => validateOtp(otp)}>login</button>
+            <input
+              className="App-input"
+              value={otp}
+              onChange={({target}) => setOtp(target.value)}
+              disabled={loading}
+            />
+            <button
+              className="App-button"
+              onClick={() => validateOtp(otp)}
+              disabled={loading}
+            >
+              login
+            </button>
           </div>
         )}
         {token && <Redirect to={{pathname: "/bots"}} replace={true} />}
